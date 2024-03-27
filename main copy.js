@@ -25,7 +25,7 @@ onValue(twittsListInDB, function (snapshot) {
       render(renderQ); //keys and value are transported via function
     }
   } else {
-    twitList.innerHTML = `<span class="empty-span">Nothing here yet...</span>`;
+    twitList.innerHTML = "Nothing here yet...";
   }
 });
 
@@ -44,24 +44,15 @@ btnEl.addEventListener("click", function () {
 function render(itemToRender) {
   let itemId = itemToRender[0]; //taking only keys here
   let itemValue = itemToRender[1]; //taking only value here
-
   let newEl = document.createElement("div");
-  let newElBtn = document.createElement("button");
-
-  newElBtn.id = "delete-Btn";
-  newElBtn.className = "btn-close-icon";
   newEl.id = "p-twitts-fb";
-
-  newElBtn.innerHTML = `<i class='fa-solid fa-x'></i>`;
-  newEl.innerHTML = `<p class=p-twitts>${itemValue}</p>`;
-
-  twitList.append(newEl);
-  newEl.append(newElBtn);
-
-  newElBtn.addEventListener("click", function () {
-    let locationOfItemInDB = ref(database, `twittsList/${itemId}`);
-    remove(locationOfItemInDB);
+  newEl.innerHTML = `<p class=p-twitts>${itemValue}</p>
+                      <div id="delete-Btn" class="btn-close-icon"><i class='fa-solid fa-x'></i></div>
+  `;
+  newEl.addEventListener("click", function () {
+    console.log("testsetsd");
   });
+  twitList.append(newEl);
 }
 
 function clear() {
