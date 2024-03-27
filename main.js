@@ -15,11 +15,17 @@ const inputEl = document.getElementById("input-el");
 const btnEl = document.getElementById("btn-el");
 const twitList = document.getElementById("twit-list");
 
+//render and push to firebase on click "Publish"
 btnEl.addEventListener("click", function () {
   let inputElValue = inputEl.value;
 
-  render(inputElValue);
-  console.log(inputElValue);
+  if (inputElValue === "") {
+    console.log("nothing to render");
+  } else {
+    push(twittsListInDB, inputElValue);
+
+    render(inputElValue);
+  }
   clear();
 });
 
