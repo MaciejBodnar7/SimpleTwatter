@@ -69,7 +69,7 @@ img {
 }
 .twit-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   margin-top: 1em;
   gap: 0.4em;
 }
