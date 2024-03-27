@@ -8,10 +8,14 @@ const appSettings = {
 const app = initializeApp(appSettings);
 const database = getDatabase(app);
 const twittsListInDB = ref(database, "twittsList");
+const twittsNicksInDB = ref(database, "twittsNicks");
+const twittsTagsInDB = ref(database, "twittsTags");
 
 const inputEl = document.getElementById("input-el");
 const btnEl = document.getElementById("btn-el");
 const twitList = document.getElementById("twit-list");
+const fromInput = document.getElementById("from-input");
+const tagInput = document.getElementById("tag-input");
 
 // onvalue
 onValue(twittsListInDB, function (snapshot) {
@@ -33,12 +37,17 @@ onValue(twittsListInDB, function (snapshot) {
 btnEl.addEventListener("click", function () {
   let inputElValue = inputEl.value;
 
-  if (inputElValue === "") {
+  let nicknameValue = fromInput.value;
+  let tagValue = tagInput.value;
+
+  if (inputElValue === "" || nicknameValue === "" || tagValue === "") {
     console.log("nothing to render");
   } else {
     push(twittsListInDB, inputElValue);
+    push(twittsNicksInDB, nicknameValue);
+    push(twittsTagsInDB, tagValue);
+    clear();
   }
-  clear();
 });
 
 function render(itemToRender) {
@@ -52,8 +61,12 @@ function render(itemToRender) {
   newElBtn.className = "btn-close-icon";
   newEl.id = "p-twitts-fb";
 
-  newElBtn.innerHTML = `<i class='fa-solid fa-x'></i>`;
-  newEl.innerHTML = `<p class=p-twitts>${itemValue}</p>`;
+  newElBtn.innerHTML = `<i class="fa-solid fa-x"></i>`;
+  newEl.innerHTML = `<div class="p-nicktwiitsandtag">
+                        <p class="p-nickname">NICK</p>
+                        <p class="p-twitts">${itemValue}</p>
+                        <p class="p-tags">TAG</p>
+                     </div>`;
 
   twitList.append(newEl);
   newEl.append(newElBtn);
